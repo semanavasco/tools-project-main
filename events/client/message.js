@@ -145,48 +145,50 @@ module.exports = async (client, message) => {
             newData.save().catch(err => console.log(err));
         }
 
-        onoff = data.onoff;
-        levelingMessage = data.message;
-        levelingChannel = data.channel;
-        messageActivate = data.messageActivate;
-        channelActivate = data.channelActivate;
+        else {
+            onoff = data.onoff;
+            levelingMessage = data.message;
+            levelingChannel = data.channel;
+            messageActivate = data.messageActivate;
+            channelActivate = data.channelActivate;
 
-        // LEVELS
-        if (!message.guild) return;
-        if (message.author.bot) return;
-        if (onoff === false) {
-            return;
-        } else {
-            let randomXp = 0;
+            // LEVELS
+            if (!message.guild) return;
+            if (message.author.bot) return;
+            if (onoff === false) {
+                return;
+            } else {
+                let randomXp = 0;
 
-            if (message.content.length < 5) return;
-            else if (message.content.length > 5 && message.content.length < 500) {
-                randomXp = Math.floor(Math.random() * 9) + 1;
-            }
-            else if (message.content.length > 500 && message.content.length < 1000) {
-                randomXp = Math.floor(Math.random() * 14) + 1;
-            }
-            else if (message.content.length > 1000 && message.content.length) {
-                randomXp = Math.floor(Math.random() * 19) + 1;
-            }
-
-            const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, Number(randomXp));
-            if (hasLeveledUp) {
-                const user = await Levels.fetch(message.author.id, message.guild.id);
-                if (messageActivate === false) {
-                    levelingMessage = `<a:dance_stickman:824344898589294595> | Bravo ${message.author}, tu as monté de niveau et es actuellement au niveau **${user.level}** ! Continue comme ça !`
+                if (message.content.length < 5) return;
+                else if (message.content.length > 5 && message.content.length < 500) {
+                    randomXp = Math.floor(Math.random() * 9) + 1;
+                }
+                else if (message.content.length > 500 && message.content.length < 1000) {
+                    randomXp = Math.floor(Math.random() * 14) + 1;
+                }
+                else if (message.content.length > 1000 && message.content.length) {
+                    randomXp = Math.floor(Math.random() * 19) + 1;
                 }
 
-                if (channelActivate === false) {
-                    levelingChannel = message.channel.id;
+                const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, Number(randomXp));
+                if (hasLeveledUp) {
+                    const user = await Levels.fetch(message.author.id, message.guild.id);
+                    if (messageActivate === false) {
+                        levelingMessage = `<a:dance_stickman:824344898589294595> | Bravo ${message.author}, tu as monté de niveau et es actuellement au niveau **${user.level}** ! Continue comme ça !`
+                    }
+
+                    if (channelActivate === false) {
+                        levelingChannel = message.channel.id;
+                    }
+
+                    const messageAEnvoyer = await levelingMessage.replace("{user}", `${message.author}`);
+                    const messageQuiEstEnvoye = await messageAEnvoyer.replace("{level}", `${user.level}`);
+
+                    const channel = client.channels.cache.find(channel => channel.id === levelingChannel);
+
+                    channel.send(`${messageQuiEstEnvoye}`);
                 }
-
-                const messageAEnvoyer = await levelingMessage.replace("{user}", `${message.author}`);
-                const messageQuiEstEnvoye = await messageAEnvoyer.replace("{level}", `${user.level}`);
-
-                const channel = client.channels.cache.find(channel => channel.id === levelingChannel);
-
-                channel.send(`${messageQuiEstEnvoye}`);
             }
         }
     });
