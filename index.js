@@ -70,7 +70,7 @@ const manager = new GiveawayManagerWithOwnDatabase(client, {
     default: {
         botsCanWin: false,
         exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
-        embedColor: '14b321',
+        embedColor: '#34ebc3',
         reaction: '🎉'
     }
 });

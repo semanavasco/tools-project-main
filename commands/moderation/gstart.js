@@ -63,13 +63,13 @@ module.exports = {
                 embedFooter: 'Heure des Giveaway !',
                 noWinner: 'Je n\'ai pas pu déterminer un vainqueur.',
                 hostedBy: 'Créé par : {user}',
-                winners: 'Gagnant(s) :',
+                winners: 'Gagnant(s)',
                 endedAt: '\nFinit le',
                 units: {
-                    seconds: 'seconde',
-                    minutes: 'minute',
-                    hours: 'heure',
-                    days: 'jour',
+                    seconds: 'seconde(s)',
+                    minutes: 'minute(s)',
+                    hours: 'heure(s)',
+                    days: 'jour(s)',
                     plurals: true
                 }
             }
