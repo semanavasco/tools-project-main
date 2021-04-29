@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'snipe',
-    description: 'Envoie la dernière commande supprimée.',
+    description: 'Envoie le dernier message supprimé.',
     usage: '',
     guildOnly: true,
     cooldown: 5,
