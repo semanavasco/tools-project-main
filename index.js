@@ -78,8 +78,7 @@ const manager = new GiveawayManagerWithOwnDatabase(client, {
 client.giveawaysManager = manager;
 
 // SNIPES
-const snipe = new Map();
-client.snipes = snipe;
+client.snipes = new Map();
 
 // COOLDOWNS
 client.cooldowns = new Discord.Collection();
